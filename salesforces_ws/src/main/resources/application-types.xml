@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="product_data_CSV" format="csv">
+      <types:shape format="weave" example="examples/salesforce-2.csv"><![CDATA[%dw 2.0
+
+type product_data_CSV = Array<{|  Product_id: String,   Product_name: String,   Product_quantity: String,   Product_price: String|}> {"isQuotedString": "false",
+"header": "true",
+"headerLineNumber": "0"}
+
+]]></types:shape>
+      <types:properties>
+        <types:property name="headerLineNumber" value="0"/>
+        <types:property name="header" value="true"/>
+        <types:property name="isQuotedString" value="false"/>
+      </types:properties>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#a11e2159-9575-4f3c-a973-98463fe6fcfb">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="product_data_CSV"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
