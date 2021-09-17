@@ -2,7 +2,7 @@
 <types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
   <types:catalog>
     <types:type name="product_data_CSV" format="csv">
-      <types:shape format="weave" example="examples/salesforce-2.csv"><![CDATA[%dw 2.0
+      <types:shape format="weave" example="examples/salesforce-3.csv"><![CDATA[%dw 2.0
 
 type product_data_CSV = Array<{|  Product_id: String,   Product_name: String,   Product_quantity: String,   Product_price: String|}> {"isQuotedString": "false",
 "header": "true",

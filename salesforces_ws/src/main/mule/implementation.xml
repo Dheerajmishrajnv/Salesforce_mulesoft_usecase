@@ -11,11 +11,12 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
 	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="33d61b6c-330d-4760-8281-ff5accea6c20" >
-		<salesforce:basic-connection username="dheeraj.mishra@apisero.com" password="Dheeraj@m3NO" securityToken="nHUauoEnkjIKAVFo3JGpdPo1N" />
+		<salesforce:basic-connection username="${sfdc.user}" password="${sfdc.password}" securityToken="${sfdc.token}" />
 	</salesforce:sfdc-config>
 	<file:config name="File_Config" doc:name="File Config" doc:id="79e9acbb-ff03-4de5-8a23-eb22e4c616f9" >
 		<file:connection workingDir="C:\Users\dheerajmishra\Desktop\Git_workspace\Salesforce_usecase" />
 	</file:config>
+	<configuration-properties doc:name="Configuration properties" doc:id="5bb990c4-2316-42d6-86a5-b10aaf19a460" file="config.yaml" />
 	<flow name="Salesforce" doc:id="f2ff27a9-ec6c-4866-af2d-87b847a92b84" >
 		<file:listener doc:name="On New or Updated File" doc:id="89c5dc8c-e3ef-4967-bf46-3007b87a8708" config-ref="File_Config" directory="C:\Users\dheerajmishra\Desktop\Git_workspace\Salesforce_usecase\salesforces_ws\src\main\resources\input" autoDelete="true">
 			<scheduling-strategy >
@@ -35,9 +36,7 @@ payload map ( payload01 , indexOfPayload01 ) -> {
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="Logger" doc:id="1e373dbe-d23f-4042-9588-216e4e5de3de" message="Message transformed"/>
-		<salesforce:create doc:name="Create" doc:id="645aea4d-4c19-4ae3-93e0-1ff42503aa54" config-ref="Salesforce_Config" type="AbcProduct__c"/>
-		<logger level="INFO" doc:name="Logger" doc:id="f5c51259-4490-450d-8144-b81fddeb5aa6" message="created"/>
+		<salesforce:create doc:name="Create" doc:id="04ac2443-582d-49dd-a4d8-04d3d7c4bf32" config-ref="Salesforce_Config" type="AbcProduct__c"/>
 		<ee:transform doc:name="Transform Message" doc:id="35c7e9d6-6b1b-45a8-99c6-62ef596af12b" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
@@ -46,7 +45,6 @@ output application/json
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="Logger" doc:id="0a406912-afee-4182-8d2e-ca7d2938f2be" message="Output transformation"/>
 		<file:write doc:name="Write" doc:id="a6aff308-7e68-4e5e-bf4c-683a3a4e86eb" config-ref="File_Config" path="C:\Users\dheerajmishra\Desktop\Git_workspace\Salesforce_usecase\salesforces_ws\src\main\resources\output\test.json"/>
 		<logger level="INFO" doc:name="Logger" doc:id="ab6b0935-cca0-4e50-a18d-a0d7d5b072cd" />
 	</flow>
