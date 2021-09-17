@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="65c365c9-f2e2-4e95-8c17-f7bb3f431279" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="salesforces_wsFlow" doc:id="78753d70-9572-46c0-9f6f-29185ec63814" >
+		<http:listener doc:name="Listener" doc:id="3d222058-76e9-4d8c-863f-50cd51305976" config-ref="HTTP_Listener_config" path="/abc"/>
+		<set-payload value="payload" doc:name="Set Payload" doc:id="2d83dd2c-4b98-477b-ad50-222dfbdb5f34" />
+		<logger level="INFO" doc:name="Logger" doc:id="341cef37-87a5-4619-93cc-f116cb9be748" />
+	</flow>
+</mule>
